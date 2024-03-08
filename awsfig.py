@@ -1,10 +1,14 @@
-## AWS のアーキテクチャー図から CDKのTypeScript定義を生成する
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# AWS のアーキテクチャー図から CDKのTypeScript定義を生成する
+
 
 import boto3
 import json
 import base64
 import sys
 import os
+from dotenv import load_dotenv
 import click 
 
 
@@ -16,6 +20,11 @@ import click
 def generate(debug,file):
 
     """This tool generate Typescript from AWS figure"""
+    # .envからAPIキーを取得する。
+    # .envファイルには、DEEPL_API_KEY="APIキー"のように記載する。
+    load_dotenv()
+    access_key = os.environ["AWS_ACCESS_KEY"]
+    secret_key = os.environ["AWS_SECRET_KEY"]
 
     image = open(file, "rb").read()
     b64 = base64.b64encode(image).decode("utf-8")
@@ -24,8 +33,8 @@ def generate(debug,file):
     # デフォルトリージョンで良い場合はリージョン指定省略可
     # サンプルのため認証情報が直接書き込まれています。適切な方法で取得するようにしてください。
     bedrock = boto3.client('bedrock-runtime', 
-                        aws_access_key_id = 'to be pasted',
-                        aws_secret_access_key = 'to be pasted',
+                        aws_access_key_id = access_key,
+                        aws_secret_access_key = secret_key,
                         region_name = "us-west-2")
 
 
