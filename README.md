@@ -2,7 +2,7 @@
 
 Generate AWS CDK script from AWS Architecture figure
 
-Amazon Bedrock - Cloud3を使ってAWSの構成図から同じ構成を作成するための
+Amazon Bedrock - Claude3を使ってAWSの構成図から同じ構成を作成するための
 AWS CDKのTypeScriptを生成します。
 
 ## Description
